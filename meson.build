@@ -125,26 +125,38 @@ foreach h : check_headers
   endif
 endforeach
 
-
-
-onnxruntime_include = include_directories('onnxruntime/include')
-onnxruntime_lib_dir = meson.current_source_dir() / 'onnxruntime/lib'
 onnxruntime_dep = declare_dependency(
-  include_directories : onnxruntime_include,
-  link_args : ['-L' + onnxruntime_lib_dir, '-lonnxruntime']
+  include_directories : include_directories('/usr/include/onnxruntime'),
+  link_args : ['-lonnxruntime']
 )
 
-libtorch_include = include_directories('libtorch/include', 'libtorch/include/torch/csrc/api/include')
-libtorch_lib_dir = meson.current_source_dir() / 'libtorch/lib'
 libtorch_dep = declare_dependency(
-  include_directories : libtorch_include,
+  include_directories : include_directories('/usr/include/libtorch', '/usr/include/libtorch/torch/csrc/api/include'),
   link_args : [
-    '-L' + libtorch_lib_dir,
     '-ltorch',
     '-lc10',
     '-ltorch_cpu'
   ]
 )
+
+#onnxruntime_include = include_directories('onnxruntime/include')
+#onnxruntime_lib_dir = meson.current_source_dir() / 'onnxruntime/lib'
+#onnxruntime_dep = declare_dependency(
+#  include_directories : onnxruntime_include,
+#  link_args : ['-L' + onnxruntime_lib_dir, '-lonnxruntime']
+#)
+
+#libtorch_include = include_directories('libtorch/include', 'libtorch/include/torch/csrc/api/include')
+#libtorch_lib_dir = meson.current_source_dir() / 'libtorch/lib'
+#libtorch_dep = declare_dependency(
+#  include_directories : libtorch_include,
+#  link_args : [
+#    '-L' + libtorch_lib_dir,
+#    '-ltorch',
+#    '-lc10',
+#    '-ltorch_cpu'
+#  ]
+#)
 
 xrt_req = '>= 2.6' #XRT 2020.1
 xrt_dep = dependency('xrt', version : xrt_req, required : true)
