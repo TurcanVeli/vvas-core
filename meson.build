@@ -126,7 +126,7 @@ foreach h : check_headers
 endforeach
 
 onnxruntime_dep = declare_dependency(
-  include_directories : include_directories('/usr/include/onnxruntime'),
+  include_directories = include_directories('/usr/include/onnxruntime/include')
   link_args : ['-lonnxruntime']
 )
 
