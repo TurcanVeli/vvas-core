@@ -125,19 +125,9 @@ foreach h : check_headers
   endif
 endforeach
 
-onnxruntime_dep = declare_dependency(
-  include_directories: include_directories('/usr/include/onnxruntime/include'),
-  link_args: ['-lonnxruntime']
-)
+onnxruntime_dep = dependency('onnxruntime', required : true)
 
-libtorch_dep = declare_dependency(
-  include_directories : include_directories('/usr/include/libtorch', '/usr/include/libtorch/torch/csrc/api/include'),
-  link_args : [
-    '-ltorch',
-    '-lc10',
-    '-ltorch_cpu'
-  ]
-)
+libtorch_dep = dependency('libtorch', required : true)
 
 #onnxruntime_include = include_directories('onnxruntime/include')
 #onnxruntime_lib_dir = meson.current_source_dir() / 'onnxruntime/lib'
